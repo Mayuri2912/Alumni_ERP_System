@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-white shadow-sm vh-100 p-3">
+            <div class="d-flex flex-column h-100">
+                
+                <div>
+                    <h5 class="mb-3">
+                        <span style="font-size: 1.5rem; vertical-align: middle;">🎓</span> MIT-WPU
+                    </h5>
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" 
+                               href="{% url 'dashboard' %}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'meetups' %}active{% endif %}" 
+                               href="{% url 'meetups' %}">Meetups</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'announcements' %}active{% endif %}" 
+                               href="{% url 'announcements' %}">Announcements</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'hiring' %}active{% endif %}" 
+                               href="{% url 'hiring' %}">Hiring</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'alumni_list' %}active{% endif %}" 
+                               href="{% url 'alumni_list' %}">Alumni</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'student_list' %}active{% endif %}" 
+                               href="{% url 'student_list' %}">Students</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'invites' %}active{% endif %}" 
+                               href="{% url 'invites' %}">Invites</a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <h6 class="nav-link text-dark">Administration</h6>
+                    <ul class="nav nav-pills flex-column">
+                        
+                        {% if user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.resolver_match.url_name == 'content_moderation' %}active{% endif %}" 
+                               href="{% url 'content_moderATION' %}">Content Moderation</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="flex-grow-1"></div>
+
+                <div>
+                    <div class="card shadow-sm border-0 bg-light mb-3">
+                        <div class="card-body">
+                            <strong>Department MCA</strong>
+                            <p class="small text-muted mb-1">Plan your batch get-together and share updates.</p>
+                            <a href="{% url 'alumni_list' %}" class="small">Alumni First</a>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="d-flex align-items-center">
+                            <img src="https://via.placeholder.com/40" class="rounded-circle" alt="User">
+                            <div class="ms-2">
+                                <strong class="d-block">{{ user.full_name }}</strong>
+                                <span class="text-muted small">Class of {{ user.batch_year }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="col-md-10 ms-sm-auto px-md-4 py-4">
+            
+            <div class="d-flex justify-content-between align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">{% block title %}Alumni Hub{% endblock %}</h1>
+                
+                <form class="w-50" action="{% url 'search_results' %}" method="GET">
+                    <input class="form-control form-control-dark" 
+                           type="text" 
+                           name="q" 
+                           placeholder="Search posts and people..." 
+                           aria-label="Search"
+                           value="{{ request.GET.q }}">
+                </form>
+                
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="{% url 'create_post' %}" class="btn btn-primary me-2">+ New Post</a>
+                    <a href="{% url 'logout' %}" class="btn btn-outline-secondary">Logout</a>
+                </div>
+            </div>
+
+            {% block portal_content %}
+            {% endblock %}
+
+        </main>
+    </div>
+</div>
+{% endblock %}

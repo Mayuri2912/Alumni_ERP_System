@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="col-md-6">
+            <div class="text-center mb-4">
+                <h4><span style="font-size: 2rem; vertical-align: middle;">🎓</span> MIT-WPU Student Login</h4>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <h3 class="mb-4">Student Login</h3>
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label">College Email/ID</label>
+                            {{ login_form.username }}
+                            {{ login_form.username.errors }}
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            {{ login_form.password }}
+                            {{ login_form.password.errors }}
+                        </div>
+                        
+                        {% if login_form.non_field_errors %}
+                            <div class="alert alert-danger p-2" role="alert">
+                                {{ login_form.non_field_errors|first }}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="d-grid">
+                            <button type="submit" name="submit_login" class="btn btn-primary btn-lg">Login</button>
+                        </div>
+                        <a href="#" class="d-block text-center mt-3 small">Forgot Password?</a>
+                    </form>
+                </div>
+            </div>
+            <p class="text-center text-muted small mt-3">© 2025 MIT World Peace University – MCA Department</p>
+            <p class="text-center text-muted small mt-3">Alumni? <a href="{% url 'login_signup' %}">Click here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'portal/portal_base.html' %}
+
+{% block title %}Create a New Post{% endblock %}
+
+{% block portal_content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="id_content" class="form-label">What's on your mind?</label>
+                        {{ form.content }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_post_type" class="form-label">Post Type</label>
+                        {{ form.post_type }}
+                    </div>
+
+                    <div id="meetup-fields" style="display: none;">
+                        <div class="mb-3">
+                            <label for="id_meetup_time" class="form-label">Meetup Time</label>
+                            {{ form.meetup_time }}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_meetup_location" class="form-label">Meetup Location</label>
+                            {{ form.meetup_location }}
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Post</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // This script shows/hides the meetup fields based on the post type
+    document.getElementById('id_post_type').addEventListener('change', function() {
+        var meetupFields = document.getElementById('meetup-fields');
+        if (this.value === 'Meetup') {
+            meetupFields.style.display = 'block';
+        } else {
+            meetupFields.style.display = 'none';
+        }
+    });
+</script>
+{% endblock %}

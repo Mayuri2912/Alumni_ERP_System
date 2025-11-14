@@ -1,0 +1,91 @@
+{% extends 'portal/portal_base.html' %}
+
+{% block title %}Alumni Hub{% endblock %}
+
+{% block portal_content %}
+    <div class="row g-3 mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h2 class="display-6 fw-bold">{{ stats.total_alumni }}</h2>
+                    <p class="text-muted mb-0">Total Alumni</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h2 class="display-6 fw-bold">{{ stats.open_roles }}</h2>
+                    <p class="text-muted mb-0">Open Roles</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-body text-center">
+                    <h2 class="display-6 fw-bold">{{ stats.upcoming_meetups }}</h2>
+                    <p class="text-muted mb-0">Upcoming Meets</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-8">
+            
+            <h3 class="h4">Recent Posts</h3>
+            {% for post in posts %}
+            <div class="card shadow-sm border-0 mb-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="https://via.placeholder.com/40" class="rounded-circle" alt="User">
+                        <div class="ms-2">
+                            <strong class="d-block">{{ post.author.full_name }}</strong>
+                            <span class="text-muted small">{{ post.author.batch_year }} • {{ post.created_at|timesince }} ago</span>
+                        </div>
+                        {% if post.post_type != 'General' %}
+                            <span class="badge bg-secondary ms-auto">{{ post.post_type }}</span>
+                        {% endif %}
+                    </div>
+                    <p class="card-text">{{ post.content }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="card shadow-sm border-0 mb-3">
+                <div class="card-body text-center text-muted">No posts yet.</div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="col-md-4">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Upcoming Meetups</h5>
+                    {% for meetup in upcoming_meetups %}
+                    <div class="mb-3">
+                        <strong>{{ meetup.author.full_name }} • <span class="text-muted small">{{ meetup.meetup_time|date:"M j" }}</span></strong>
+                        <p class="mb-0">{{ meetup.content|truncatewords:15 }}</p>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">No upcoming meetups scheduled.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Map - Campus</h5>
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.352467923798!2d73.81352631525287!3d18.51191088741366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bfb98581f4d1%3A0x29127b05683b5f69!2sMIT%20World%20Peace%20University%20(MIT-WPU)!5e0!3m2!1sen!2sin!4v1671234567890!5m2!1sen!2sin" 
+                        width="100%" 
+                        height="300" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

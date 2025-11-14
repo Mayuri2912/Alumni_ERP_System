@@ -1,0 +1,32 @@
+{% extends 'portal/portal_base.html' %}
+
+{% block title %}Student Directory{% endblock %}
+
+{% block portal_content %}
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Batch Year</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in students %}
+                    <tr>
+                        <td><strong>{{ person.full_name }}</strong></td>
+                        <td>{{ person.batch_year }}</td>
+                        <td>{{ person.email }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">No students have signed up yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}g

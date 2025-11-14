@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row vh-100 justify-content-center align-items-center">
+        <div class="col-md-10">
+            <div class="text-center mb-4">
+                <h4><span style="font-size: 2rem; vertical-align: middle;">🎓</span> MIT-WPU MCA Alumni Portal</h4>
+            </div>
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <div class="row">
+                        <div class="col-md-6 border-end pe-4">
+                            <h3 class="mb-4">Alumni Login</h3>
+                            <form method="POST">
+                                {% csrf_token %}
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">College Email/ID</label>
+                                    {{ login_form.username }}
+                                    {{ login_form.username.errors }}
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Password</label>
+                                    {{ login_form.password }}
+                                    {{ login_form.password.errors }}
+                                </div>
+                                
+                                {% if login_form.non_field_errors %}
+                                    <div class="alert alert-danger p-2" role="alert">
+                                        Invalid email or password.
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="d-grid">
+                                    <button type="submit" name="submit_login" class="btn btn-primary btn-lg">Login</button>
+                                </div>
+                                <a href="#" class="d-block text-center mt-3 small">Forgot Password?</a>
+                            </form>
+                        </div>
+
+                        <div class="col-md-6 ps-4">
+                            <h3 class="mb-4">Alumni Sign Up</h3>
+                            <form method="POST">
+                                {% csrf_token %}
+                                
+                                {% for field in signup_form %}
+                                <div class="mb-3">
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {{ field.errors }}
+                                </div>
+                                {% endfor %}
+
+                                <div class="d-grid">
+                                    <button type="submit" name="submit_signup" class="btn btn-dark btn-lg">Sign Up</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-muted small mt-3">© 2025 MIT World Peace University – MCA Department</p>
+            
+            <p class="text-center text-muted small mt-3">Are you a student? <a href="{% url 'student_login' %}">Login here</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

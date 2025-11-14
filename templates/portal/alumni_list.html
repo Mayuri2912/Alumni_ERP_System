@@ -1,0 +1,28 @@
+{% extends 'portal/portal_base.html' %}
+
+{% block title %}Alumni Directory{% endblock %}
+
+{% block portal_content %}
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Batch Year</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in alumni %}
+                    <tr>
+                        <td><strong>{{ person.full_name }}</strong></td>
+                        <td>{{ person.batch_year }}</td>
+                        <td>{{ person.email }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

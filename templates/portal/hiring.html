@@ -1,0 +1,31 @@
+{% extends 'portal/portal_base.html' %}
+
+{% block title %}Hiring & Job Posts{% endblock %}
+
+{% block portal_content %}
+    <div class="row">
+        <div class="col-md-10">
+            {% for post in posts %}
+            <div class="card shadow-sm border-0 mb-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="https://via.placeholder.com/40" class="rounded-circle" alt="User">
+                        <div class="ms-2">
+                            <strong class="d-block">{{ post.author.full_name }}</strong>
+                            <span class="text-muted small">{{ post.author.batch_year }} • {{ post.created_at|timesince }} ago</span>
+                        </div>
+                        <span class="badge bg-secondary ms-auto">{{ post.post_type }}</span>
+                    </div>
+                    <p class="card-text">{{ post.content }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="card shadow-sm border-0 mb-3">
+                <div class="card-body text-center text-muted">
+                    No hiring posts at the moment.
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

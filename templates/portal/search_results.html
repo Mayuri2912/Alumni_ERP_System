@@ -1,0 +1,65 @@
+{% extends 'portal/portal_base.html' %}
+
+{% block title %}Search Results for "{{ query }}"{% endblock %}
+
+{% block portal_content %}
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="h4">Post Results</h3>
+            {% for post in post_results %}
+            <div class="card shadow-sm border-0 mb-3">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="https://via.placeholder.com/40" class="rounded-circle" alt="User">
+                        <div class="ms-2">
+                            <strong class="d-block">{{ post.author.full_name }}</strong>
+                            <span class="text-muted small">{{ post.author.batch_year }} • {{ post.created_at|timesince }} ago</span>
+                        </div>
+                        {% if post.post_type != 'General' %}
+                            <span class="badge bg-secondary ms-auto">{{ post.post_type }}</span>
+                        {% endif %}
+                    </div>
+                    <p class="card-text">{{ post.content|safe }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="card shadow-sm border-0 mb-3">
+                <div class="card-body text-center text-muted">
+                    No posts found matching your search.
+                </div>
+            </div>
+            {% endfor %}
+
+            <hr class="my-4">
+
+            <h3 class="h4">Alumni & Student Results</h3>
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">User Type</th>
+                                <th scope="col">Batch Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for person in user_results %}
+                            <tr>
+                                <td><strong>{{ person.full_name }}</strong></td>
+                                <td>{{ person.user_type }}</td>
+                                <td>{{ person.batch_year }}</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3" class="text-center text-muted">No users found matching your search.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
