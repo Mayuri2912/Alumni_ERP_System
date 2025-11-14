@@ -18,4 +18,5 @@ urlpatterns = [
     path('moderation/', views.content_moderation_view, name='content_moderation'),
     path('moderation/approve/<int:pk>/', views.approve_post_view, name='approve_post'),
     path('moderation/delete/<int:pk>/', views.delete_post_view, name='delete_post'),
+    path('mentors/', views.mentor_list_view, name='mentor_list'),
 ]

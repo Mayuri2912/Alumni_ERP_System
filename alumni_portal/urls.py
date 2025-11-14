@@ -14,4 +14,5 @@ urlpatterns = [
 
     # Make the root URL redirect to the login/signup page
     path('', lambda r: redirect('login_signup'), name='root'),
+    
 ]
