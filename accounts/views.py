@@ -1,7 +1,9 @@
 # accounts/views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from .forms import AlumniUserCreationForm, AlumniAuthenticationForm 
+from django.contrib.auth.decorators import login_required # <-- Make sure this is imported
+# Import all your forms
+from .forms import AlumniUserCreationForm, AlumniAuthenticationForm, ProfileEditForm 
 
 def login_signup_view(request):
     if request.user.is_authenticated:
@@ -38,7 +40,6 @@ def logout_view(request):
     logout(request)
     return redirect('login_signup')
 
-# --- !! THIS IS THE NEW FUNCTION YOU ADDED !! ---
 def student_login_view(request):
     if request.user.is_authenticated:
         return redirect('dashboard') # Send logged-in users to the dashboard
@@ -66,3 +67,19 @@ def student_login_view(request):
         'login_form': login_form,
     }
     return render(request, 'accounts/student_login.html', context)
+
+# --- !! THIS IS THE NEW VIEW FOR EDITING YOUR PROFILE !! ---
+@login_required
+def edit_profile_view(request):
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard') # Redirect to dashboard after saving
+    else:
+        form = ProfileEditForm(instance=request.user)
+    
+    context = {
+        'form': form
+    }
+    return render(request, 'accounts/edit_profile.html', context)
