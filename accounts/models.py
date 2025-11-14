@@ -3,14 +3,17 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class AlumniUser(AbstractUser):
-    # --- NEW FIELDS TO ADD ---
+    # --- This is for Student vs Alumni ---
     USER_TYPE_CHOICES = (
         ('Student', 'Student'),
         ('Alumni', 'Alumni'),
     )
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='Alumni')
-    # --- END OF NEW FIELDS ---
-
+    
+    # --- !! THIS IS THE NEW LINE YOU NEED TO ADD !! ---
+    is_mentor = models.BooleanField(default=False)
+    # ---
+    
     # (Keep your existing fields)
     username = None
     email = models.EmailField(unique=True, help_text="College Email Address")
