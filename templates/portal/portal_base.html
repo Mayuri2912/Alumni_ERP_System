@@ -20,8 +20,7 @@
                                href="{% url 'meetups' %}">Meetups</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'announcements' %}active{% endif %}" 
-                               href="{% url 'announcements' %}">Announcements</a>
+                            <a class="nav-link text-dark" href="#">Announcements</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {% if request.resolver_match.url_name == 'hiring' %}active{% endif %}" 
@@ -36,34 +35,40 @@
                                href="{% url 'student_list' %}">Students</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.resolver_match.url_name == 'invites' %}active{% endif %}" 
-                               href="{% url 'invites' %}">Invites</a>
+                            <a class="nav-link text-dark" href="#">Invites</a>
                         </li>
                     </ul>
+                    
+                    {% if user.is_staff %}
                     <hr>
                     <h6 class="nav-link text-dark">Administration</h6>
                     <ul class="nav nav-pills flex-column">
-                        
-                        {% if user.is_staff %}
-                        <li class="nav-item">
+                         <li class="nav-item">
                             <a class="nav-link {% if request.resolver_match.url_name == 'content_moderation' %}active{% endif %}" 
-                               href="{% url 'content_moderATION' %}">Content Moderation</a>
+                               href="{% url 'content_moderation' %}">Content Moderation</a>
                         </li>
-                        {% endif %}
                     </ul>
-                </div>
+                    {% endif %}
+                    </div>
 
                 <div class="flex-grow-1"></div>
 
                 <div>
-                    <div class="card shadow-sm border-0 bg-light mb-3">
+                    <div class="card shadow-sm border-0 bg-primary text-white mb-3">
                         <div class="card-body">
-                            <strong>Department MCA</strong>
-                            <p class="small text-muted mb-1">Plan your batch get-together and share updates.</p>
-                            <a href="{% url 'alumni_list' %}" class="small">Alumni First</a>
+                            <strong class="h5 d-block mb-2">Connect Your Batch</strong>
+                            <p class="small mb-2">Engage with your classmates and organize events.</p>
+                            <a href="{% url 'meetups' %}" class="btn btn-sm btn-outline-light">Plan a Meetup</a>
                         </div>
                     </div>
 
+                    <div class="card shadow-sm border-0 bg-info text-white mb-3">
+                        <div class="card-body">
+                            <strong class="h5 d-block mb-2">Mentorship Program</strong>
+                            <p class="small mb-2">Guide students or find your own alumni mentor.</p>
+                            <a href="#" class="btn btn-sm btn-outline-light">Learn More</a>
+                        </div>
+                    </div>
                     <div class="mb-3">
                         <div class="d-flex align-items-center">
                             <img src="https://via.placeholder.com/40" class="rounded-circle" alt="User">
